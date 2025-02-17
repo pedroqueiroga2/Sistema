@@ -15,8 +15,10 @@ namespace sistema
         //     Idade = idade;
         // }
     }
+
     public class Sistema
     {
+
         Pessoa pessoa1 = new Pessoa();
         public void Usuario()
         {
@@ -41,9 +43,11 @@ namespace sistema
             using (StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv", append: true))
             {
                 Usuario();
-                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome};{pessoa1.Idade}");
+                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome};{pessoa1.Idade};");
                 bloco.Close();
+
             }
+
         }
         public void ler()
         {
@@ -87,8 +91,16 @@ namespace sistema
 
                 Console.WriteLine("Nos informe sua senha");
 
+                StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Senhas.csv");
+                
+                    
+
+                
                 // Lê a senha digitada pelo usuário
                 string senha = Console.ReadLine();
+                bloco.WriteLine(senha);
+                bloco.Close();
+
                 if (senha.Length <= 5)
                 {
                     Console.WriteLine("sua senha é curta, informe outra");
@@ -97,58 +109,31 @@ namespace sistema
                 {
                     bool verifCaracterEspecial = false;
 
-                    foreach(var c in senha)
+                    foreach (var c in senha)
                     {
-                        if(char.IsPunctuation(c))
+                        if (char.IsPunctuation(c))
                         {
                             verifCaracterEspecial = true;
                             break;
                         }
                     }
-                        if(verifCaracterEspecial)
-                        {
-                            Console.WriteLine("senha válida");
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Sua senha deve conter ao menos um caracter especial");
-                        }
+                    if (verifCaracterEspecial)
+                    {
+                        Console.WriteLine("senha válida");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sua senha deve conter ao menos um caracter especial");
+                    }
 
 
-                   // Variável para controlar se foi encontrado algum caractere especial
-            // bool temCaractereEspecial = false;
-
-            //         // Percorre cada caractere da senha digitada
-            //         foreach (var c in senha)
-            //         {
-            //             // Converte o caractere 'c' para string e verifica se está na lista de caracteres especiais
-            //             if (char.IsPunctuation(c))
-            //             {
-            //                 temCaractereEspecial = true; // Se encontrar um caractere especial, marca como verdadeiro
-            //                 break; // Sai do loop assim que encontrar o primeiro caractere especial
-            //             }
-            //         }
-
-            //         // Verifica se foi encontrado algum caractere especial na senha
-            //         if (temCaractereEspecial)
-            //         {
-            //             // Se encontrou, informa que a senha é válida
-            //             Console.WriteLine("Senha válida!");
-            //         }
-            //         else
-            //         {
-            //             // Caso contrário, informa que a senha deve conter pelo menos um caractere especial
-            //             Console.WriteLine("A senha deve conter pelo menos um caractere especial.");
-            //         }
-                   
-            //     }
+                }
             }
+
+
+
         }
-
-
-
-    }
 
 
 
