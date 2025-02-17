@@ -47,28 +47,40 @@ namespace sistema
         }
         public void ler()
         {
-            using (StreamReader x = new StreamReader("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv"))
+            string caminhoArquivo = "C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv";
+            if (File.Exists(caminhoArquivo))
             {
-                string line = x.ReadLine();
-
-                string caminhoArquivo  = "C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv";
                 FileInfo arquivoInfo = new FileInfo(caminhoArquivo);
 
-                if (line != null || arquivoInfo.Length != 0)
+                if (arquivoInfo.Length > 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine(line);
-                    Console.ResetColor();
+                    using (StreamReader x = new StreamReader(caminhoArquivo))
+                    {
+                        string line;
+                        while ((line = x.ReadLine()) != null)  // Continua lendo até o final do arquivo
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(line);  // Exibe cada linha
+                            Console.ResetColor();
+                        }
+                    }
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("O arquivo está em branco ou não existe");
+                    Console.WriteLine("O arquivo está vazio.");
                     Console.ResetColor();
                 }
-
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("O arquivo não existe.");
+                Console.ResetColor();
             }
         }
+
+
 
 
     }
