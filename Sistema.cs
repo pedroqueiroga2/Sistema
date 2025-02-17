@@ -79,7 +79,76 @@ namespace sistema
                 Console.ResetColor();
             }
         }
+        public void Senha()
+        {
+            // Solicita que o usuário informe uma senha
+            while (true)
+            {
 
+                Console.WriteLine("Nos informe sua senha");
+
+                // Lê a senha digitada pelo usuário
+                string senha = Console.ReadLine();
+                if (senha.Length <= 5)
+                {
+                    Console.WriteLine("sua senha é curta, informe outra");
+                }
+                else
+                {
+                    bool verifCaracterEspecial = false;
+
+                    foreach(var c in senha)
+                    {
+                        if(char.IsPunctuation(c))
+                        {
+                            verifCaracterEspecial = true;
+                            break;
+                        }
+                    }
+                        if(verifCaracterEspecial)
+                        {
+                            Console.WriteLine("senha válida");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Sua senha deve conter ao menos um caracter especial");
+                        }
+
+
+                   // Variável para controlar se foi encontrado algum caractere especial
+            // bool temCaractereEspecial = false;
+
+            //         // Percorre cada caractere da senha digitada
+            //         foreach (var c in senha)
+            //         {
+            //             // Converte o caractere 'c' para string e verifica se está na lista de caracteres especiais
+            //             if (char.IsPunctuation(c))
+            //             {
+            //                 temCaractereEspecial = true; // Se encontrar um caractere especial, marca como verdadeiro
+            //                 break; // Sai do loop assim que encontrar o primeiro caractere especial
+            //             }
+            //         }
+
+            //         // Verifica se foi encontrado algum caractere especial na senha
+            //         if (temCaractereEspecial)
+            //         {
+            //             // Se encontrou, informa que a senha é válida
+            //             Console.WriteLine("Senha válida!");
+            //         }
+            //         else
+            //         {
+            //             // Caso contrário, informa que a senha deve conter pelo menos um caractere especial
+            //             Console.WriteLine("A senha deve conter pelo menos um caractere especial.");
+            //         }
+                   
+            //     }
+            }
+        }
+
+
+
+    }
 
 
 
