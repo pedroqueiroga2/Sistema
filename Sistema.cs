@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 namespace sistema
 {
     public class Pessoa
@@ -7,6 +8,8 @@ namespace sistema
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public int Idade { get; set; }
+
+        public string Senha { get; set;}
 
         // public Pessoa(string nome, string sobrenome, int idade)
         // {
@@ -20,6 +23,7 @@ namespace sistema
     {
 
         Pessoa pessoa1 = new Pessoa();
+
         public void Usuario()
         {
             Console.WriteLine("Informe seu nome");
@@ -97,11 +101,11 @@ namespace sistema
 
 
                 // Lê a senha digitada pelo usuário
-                string senha = Console.ReadLine();
-                bloco.WriteLine(senha);
+                pessoa1.Senha = Console.ReadLine();
+                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade}; {pessoa1.Senha} ");
                 bloco.Close();
 
-                if (senha.Length <= 5)
+                if (pessoa1.Senha.Length <= 5)
                 {
                     Console.WriteLine("sua senha é curta, informe outra");
                 }
@@ -109,7 +113,7 @@ namespace sistema
                 {
                     bool verifCaracterEspecial = false;
 
-                    foreach (var c in senha)
+                    foreach (var c in pessoa1.Senha)
                     {
                         if (char.IsPunctuation(c))
                         {
@@ -134,9 +138,7 @@ namespace sistema
 
 
         }
-
-
-
+       
     }
 }
 public class formatação
@@ -165,7 +167,7 @@ public class formatação
         string linhaInferior = cantoInfEsq + new string(horizontal, largura - 2) + cantoInfDir;
 
         // Exibe a borda completa
-         Console.SetCursorPosition(espacosAntes, Console.CursorTop); // Move o cursor para a posição certa
+        Console.SetCursorPosition(espacosAntes, Console.CursorTop); // Move o cursor para a posição certa
         Console.WriteLine(linhaSuperior);
 
         Console.SetCursorPosition(espacosAntes, Console.CursorTop); // Mover o cursor novamente
