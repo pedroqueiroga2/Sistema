@@ -92,10 +92,10 @@ namespace sistema
                 Console.WriteLine("Nos informe sua senha");
 
                 StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Senhas.csv");
-                
-                    
 
-                
+
+
+
                 // Lê a senha digitada pelo usuário
                 string senha = Console.ReadLine();
                 bloco.WriteLine(senha);
@@ -138,4 +138,42 @@ namespace sistema
 
 
     }
+}
+public class formatação
+{
+    public void EscreverComBorda()
+    {
+        string texto = "Cadastro";
+        int largura = texto.Length + 4; // Define a largura total da borda
+        int telaLargura = Console.WindowWidth;  // Largura da tela 
+        int espacosAntes = (telaLargura - largura) / 2;  // Calcular a quantidade de espaços para centralizar
+
+        // Caracteres especiais para formar a borda
+        char cantoSupEsq = '╔';
+        char cantoSupDir = '╗';
+        char cantoInfEsq = '╚';
+        char cantoInfDir = '╝';
+        char horizontal = '═';
+        char vertical = '║';
+
+        string linhaTexto = $"{vertical} {texto} {vertical}";
+
+        // Cria a linha superior
+        string linhaSuperior = cantoSupEsq + new string(horizontal, largura - 2) + cantoSupDir;
+
+        // Cria a linha inferior
+        string linhaInferior = cantoInfEsq + new string(horizontal, largura - 2) + cantoInfDir;
+
+        // Exibe a borda completa
+         Console.SetCursorPosition(espacosAntes, Console.CursorTop); // Move o cursor para a posição certa
+        Console.WriteLine(linhaSuperior);
+
+        Console.SetCursorPosition(espacosAntes, Console.CursorTop); // Mover o cursor novamente
+        Console.WriteLine(linhaTexto);
+
+        Console.SetCursorPosition(espacosAntes, Console.CursorTop); // Mover o cursor novamente
+        Console.WriteLine(linhaInferior);
+    }
+
+
 }

@@ -3,19 +3,26 @@ using sistema;
 
 Console.Clear();
 Sistema x = new Sistema();
-while (true)
-{
-    Console.WriteLine("Digite 'sair' para encerrar o código");
-    string s = Console.ReadLine().ToLower();
-    if (s == "sair")
-    {
-        break;
-    }
-    else
-    {
-        x.ler();
-        x.Imprimir();
-        x.Senha();
-    }
-}
+
+formatação y = new formatação();
+string c = "";
+
+
+y.EscreverComBorda();
+        
+// while (true)
+// {
+//     Console.WriteLine("Digite 'sair' para encerrar o código");
+//     string s = Console.ReadLine().ToLower();
+//     if (s == "sair")
+//     {
+//         break;
+//     }
+//     else
+//     {
+//         x.ler();
+//         x.Imprimir();
+//         x.Senha();
+//     }
+// }
 
