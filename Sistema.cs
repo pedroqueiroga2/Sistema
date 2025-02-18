@@ -47,7 +47,7 @@ namespace sistema
             using (StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv", append: true))
             {
                 Usuario();
-                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome};{pessoa1.Idade};");
+                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade};{pessoa1.Senha}");
                 bloco.Close();
 
             }
@@ -67,9 +67,18 @@ namespace sistema
                         string line;
                         while ((line = x.ReadLine()) != null)  // Continua lendo até o final do arquivo
                         {
+                            var teste= line.Split(new[] {";"}, StringSplitOptions.None);
+                            
+                            for(int i = 0; i<2; i++ )
+                            {
+
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine(line);  // Exibe cada linha
+                            Console.Write(teste[i]);  // Exibe cada linha
+                            if(teste[0] == teste[i])
+                                Console.Write(" - ");
                             Console.ResetColor();
+                            }
+                            Console.WriteLine();
                         }
                     }
                 }
@@ -102,7 +111,7 @@ namespace sistema
 
                 // Lê a senha digitada pelo usuário
                 pessoa1.Senha = Console.ReadLine();
-                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade}; {pessoa1.Senha} ");
+                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade};  ");
                 bloco.Close();
 
                 if (pessoa1.Senha.Length <= 5)
