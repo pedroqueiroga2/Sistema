@@ -11,7 +11,7 @@ namespace sistema
 
         public string Senha { get; set;}
         
-
+        
 
         // public Pessoa(string nome, string sobrenome, int idade)
         // {
@@ -25,6 +25,8 @@ namespace sistema
     {
 
         Pessoa pessoa1 = new Pessoa();
+
+        private int id =1;
 
         public void Usuario()
         {
@@ -42,7 +44,7 @@ namespace sistema
             Console.WriteLine($"Nome: {pessoa1.Nome} {pessoa1.Sobrenome}");
             Console.WriteLine($"Idade: {pessoa1.Idade} anos");
             Console.ResetColor();
-        }
+        } 
         public void Imprimir()
         {
 
