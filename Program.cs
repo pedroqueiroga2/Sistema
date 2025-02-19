@@ -21,8 +21,9 @@ while (true)
     else
     {
         x.ler();
-        x.Imprimir();
+        x.Usuario();
         x.Senha();
+        x.Imprimir();
     }
 }
 

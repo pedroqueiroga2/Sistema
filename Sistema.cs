@@ -10,6 +10,8 @@ namespace sistema
         public int Idade { get; set; }
 
         public string Senha { get; set;}
+        
+
 
         // public Pessoa(string nome, string sobrenome, int idade)
         // {
@@ -46,7 +48,8 @@ namespace sistema
 
             using (StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv", append: true))
             {
-                Usuario();
+                
+                
                 bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade};{pessoa1.Senha}");
                 bloco.Close();
 
@@ -104,16 +107,14 @@ namespace sistema
 
                 Console.WriteLine("Nos informe sua senha");
 
-                StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Senhas.csv");
+                
 
 
 
 
                 // Lê a senha digitada pelo usuário
                 pessoa1.Senha = Console.ReadLine();
-                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade};  ");
-                bloco.Close();
-
+                
                 if (pessoa1.Senha.Length <= 5)
                 {
                     Console.WriteLine("sua senha é curta, informe outra");
