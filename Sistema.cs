@@ -49,35 +49,56 @@ namespace sistema
             Console.WriteLine("Informe seu Nickname");
         Return:
             pessoa1.Nickname = Console.ReadLine().Trim(); // Remove espaços extras no início e fim
-            pessoa1.Id = 0;
+            pessoa1.Id = 1;
 
-            string[] Dados = File.ReadAllLines(endereço);
-            string DadosId;
-            using (StreamReader y = new StreamReader(endereço))
+        if(File.Exists(endereço))
+        {
+            string DadosId; //Criando variavel que ira receber o arquivo
+            using (StreamReader y = new StreamReader(endereço)) //chamando metodo do endereço do arquivo(que irá retornar o contéudo do arquivo)
             {
-                while ((DadosId = y.ReadLine()) != null)
+                FileInfo arquivoInfo = new FileInfo(endereço);
+
+                if (arquivoInfo.Length > 0)
                 {
-                    var idArquivos = DadosId.Split(new[] { ";" }, StringSplitOptions.None);
-                    
-                    foreach (var id in idArquivos)
+                    while ((DadosId = y.ReadLine()) != null) // DadosId irá receber linha por linha do conteúdo arquivo e o 'null' para verificar se a linha é nula(ou esta em branca)
                     {
-                        
-                        while (pessoa1.Id <= int.Parse(idArquivos[0]))
+                        var idArquivos = DadosId.Split(new[] { ";" }, StringSplitOptions.None); //IdArquivos irá receber um array criado a partir das colunas da linhas. A função Split particiona uma string ou uma linha do excel em colunas, começando de [0, 1, 2].
+
+                        foreach (var id in idArquivos) //id esta percorrendo coluna por coluna ou, o id esta percorrendo o array criado a partir das colunas da linha
                         {
-                            
-                            pessoa1.Id++;
+
+                            while (pessoa1.Id <= int.Parse(idArquivos[0])) // pessoa1.Id diz respeito ao id que será usado para preencher o arquivo. Ele irá ser incrementado até que seja maior que o valor do id(int.Parse(idArquivos[0]))) retornado pelo arquivo
+                            {
+
+                                pessoa1.Id++;
+                            }
+
                         }
 
                     }
+                }
+                else
+                {
+                    Console.WriteLine("o arquivo esta vazio");
+                }
+
+
+            }
+        }
+        else
+        {
+            using (FileStream fs = File.Create(endereço))
+                {
 
                 }
-            }
+        }
+            
 
 
             if (File.Exists(endereço))
             {
 
-
+                string[] Dados = File.ReadAllLines(endereço);
                 foreach (string NickExistente in Dados)
                 {
                     if (pessoa1.Nickname.Equals(NickExistente.Trim(), StringComparison.OrdinalIgnoreCase)) // pega a variavel pessoa1.Nickname compara com a variavel que vai percorrer o arquivo
@@ -85,15 +106,20 @@ namespace sistema
                         Console.WriteLine("Nickname ja esta sendo usado. Tente outro");
                         goto Return;
                     }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine("\nDados do usuário:");
-                        Console.WriteLine($"Nome: {pessoa1.Nome} {pessoa1.Sobrenome}");
-                        Console.WriteLine($"Idade: {pessoa1.Idade} anos");
-                        Console.WriteLine($"Nickname: ID {pessoa1.Id} {pessoa1.Nickname}");
-                        Console.ResetColor();
-                    }
+
+                }
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("\nDados do usuário:");
+                Console.WriteLine($"Nome: {pessoa1.Nome} {pessoa1.Sobrenome}");
+                Console.WriteLine($"Idade: {pessoa1.Idade} anos");
+                Console.WriteLine($"Nickname: ID {pessoa1.Id} {pessoa1.Nickname}");
+                Console.ResetColor();
+            }
+            else
+            {
+                using (FileStream fs = File.Create(endereço))
+                {
+
                 }
             }
 
@@ -135,8 +161,8 @@ namespace sistema
                                 Console.Write(teste[i]);  // Exibe cada linha
                                 if (teste[1] == teste[i])
                                     Console.Write(" - ");
-                                if(teste[0]==teste[i])
-                                Console.Write(" ");
+                                if (teste[0] == teste[i])
+                                    Console.Write(" ");
                                 Console.ResetColor();
                             }
                             Console.WriteLine();
