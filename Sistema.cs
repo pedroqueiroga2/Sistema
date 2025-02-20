@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 namespace sistema
@@ -9,9 +10,13 @@ namespace sistema
         public string Sobrenome { get; set; }
         public int Idade { get; set; }
 
-        public string Senha { get; set;}
-        
-        
+        public string Senha { get; set; }
+
+        public string Nickname { get; set; }
+
+        public int Id { get; set; }
+
+
 
         // public Pessoa(string nome, string sobrenome, int idade)
         // {
@@ -26,10 +31,12 @@ namespace sistema
 
         Pessoa pessoa1 = new Pessoa();
 
-        private int id =1;
 
+
+        string endereço = "C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv";
         public void Usuario()
         {
+
             Console.WriteLine("Informe seu nome");
             pessoa1.Nome = Console.ReadLine().ToUpper();
 
@@ -39,20 +46,67 @@ namespace sistema
             Console.WriteLine("Informe sua idade");
             pessoa1.Idade = int.Parse(Console.ReadLine());
 
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("\nDados do usuário:");
-            Console.WriteLine($"Nome: {pessoa1.Nome} {pessoa1.Sobrenome}");
-            Console.WriteLine($"Idade: {pessoa1.Idade} anos");
-            Console.ResetColor();
-        } 
+            Console.WriteLine("Informe seu Nickname");
+        Return:
+            pessoa1.Nickname = Console.ReadLine().Trim(); // Remove espaços extras no início e fim
+            pessoa1.Id = 0;
+
+            string[] Dados = File.ReadAllLines(endereço);
+            string DadosId;
+            using (StreamReader y = new StreamReader(endereço))
+            {
+                while ((DadosId = y.ReadLine()) != null)
+                {
+                    var idArquivos = DadosId.Split(new[] { ";" }, StringSplitOptions.None);
+                    
+                    foreach (var id in idArquivos)
+                    {
+                        
+                        while (pessoa1.Id <= int.Parse(idArquivos[0]))
+                        {
+                            
+                            pessoa1.Id++;
+                        }
+
+                    }
+
+                }
+            }
+
+
+            if (File.Exists(endereço))
+            {
+
+
+                foreach (string NickExistente in Dados)
+                {
+                    if (pessoa1.Nickname.Equals(NickExistente.Trim(), StringComparison.OrdinalIgnoreCase)) // pega a variavel pessoa1.Nickname compara com a variavel que vai percorrer o arquivo
+                    {
+                        Console.WriteLine("Nickname ja esta sendo usado. Tente outro");
+                        goto Return;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("\nDados do usuário:");
+                        Console.WriteLine($"Nome: {pessoa1.Nome} {pessoa1.Sobrenome}");
+                        Console.WriteLine($"Idade: {pessoa1.Idade} anos");
+                        Console.WriteLine($"Nickname: ID {pessoa1.Id} {pessoa1.Nickname}");
+                        Console.ResetColor();
+                    }
+                }
+            }
+
+
+        }
         public void Imprimir()
         {
 
             using (StreamWriter bloco = new StreamWriter("C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv", append: true))
             {
-                
-                
-                bloco.WriteLine($"{pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade};{pessoa1.Senha}");
+
+
+                bloco.WriteLine($"{pessoa1.Id}; {pessoa1.Nome} {pessoa1.Sobrenome}; {pessoa1.Idade}; {pessoa1.Nickname}; {pessoa1.Senha}");
                 bloco.Close();
 
             }
@@ -72,16 +126,18 @@ namespace sistema
                         string line;
                         while ((line = x.ReadLine()) != null)  // Continua lendo até o final do arquivo
                         {
-                            var teste= line.Split(new[] {";"}, StringSplitOptions.None);
-                            
-                            for(int i = 0; i<2; i++ )
+                            var teste = line.Split(new[] { ";" }, StringSplitOptions.None);
+
+                            for (int i = 0; i < 3; i++)
                             {
 
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write(teste[i]);  // Exibe cada linha
-                            if(teste[0] == teste[i])
-                                Console.Write(" - ");
-                            Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(teste[i]);  // Exibe cada linha
+                                if (teste[1] == teste[i])
+                                    Console.Write(" - ");
+                                if(teste[0]==teste[i])
+                                Console.Write(" ");
+                                Console.ResetColor();
                             }
                             Console.WriteLine();
                         }
@@ -109,14 +165,14 @@ namespace sistema
 
                 Console.WriteLine("Nos informe sua senha");
 
-                
+
 
 
 
 
                 // Lê a senha digitada pelo usuário
                 pessoa1.Senha = Console.ReadLine();
-                
+
                 if (pessoa1.Senha.Length <= 5)
                 {
                     Console.WriteLine("sua senha é curta, informe outra");
@@ -150,7 +206,7 @@ namespace sistema
 
 
         }
-       
+
     }
 }
 public class formatação
