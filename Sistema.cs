@@ -51,48 +51,48 @@ namespace sistema
             pessoa1.Nickname = Console.ReadLine().Trim(); // Remove espaços extras no início e fim
             pessoa1.Id = 1;
 
-        if(File.Exists(endereço))
-        {
-            string DadosId; //Criando variavel que ira receber o arquivo
-            using (StreamReader y = new StreamReader(endereço)) //chamando metodo do endereço do arquivo(que irá retornar o contéudo do arquivo)
+            if (File.Exists(endereço))
             {
-                FileInfo arquivoInfo = new FileInfo(endereço);
-
-                if (arquivoInfo.Length > 0)
+                string DadosId; //Criando variavel que ira receber o arquivo
+                using (StreamReader y = new StreamReader(endereço)) //chamando metodo do endereço do arquivo(que irá retornar o contéudo do arquivo)
                 {
-                    while ((DadosId = y.ReadLine()) != null) // DadosId irá receber linha por linha do conteúdo arquivo e o 'null' para verificar se a linha é nula(ou esta em branca)
+                    FileInfo arquivoInfo = new FileInfo(endereço);
+
+                    if (arquivoInfo.Length > 0)
                     {
-                        var idArquivos = DadosId.Split(new[] { ";" }, StringSplitOptions.None); //IdArquivos irá receber um array criado a partir das colunas da linhas. A função Split particiona uma string ou uma linha do excel em colunas, começando de [0, 1, 2].
-
-                        foreach (var id in idArquivos) //id esta percorrendo coluna por coluna ou, o id esta percorrendo o array criado a partir das colunas da linha
+                        while ((DadosId = y.ReadLine()) != null) // DadosId irá receber linha por linha do conteúdo arquivo e o 'null' para verificar se a linha é nula(ou esta em branca)
                         {
+                            var idArquivos = DadosId.Split(new[] { ";" }, StringSplitOptions.None); //IdArquivos irá receber um array criado a partir das colunas da linhas. A função Split particiona uma string ou uma linha do excel em colunas, começando de [0, 1, 2].
 
-                            while (pessoa1.Id <= int.Parse(idArquivos[0])) // pessoa1.Id diz respeito ao id que será usado para preencher o arquivo. Ele irá ser incrementado até que seja maior que o valor do id(int.Parse(idArquivos[0]))) retornado pelo arquivo
+                            foreach (var id in idArquivos) //id esta percorrendo coluna por coluna ou, o id esta percorrendo o array criado a partir das colunas da linha
                             {
 
-                                pessoa1.Id++;
+                                while (pessoa1.Id <= int.Parse(idArquivos[0])) // pessoa1.Id diz respeito ao id que será usado para preencher o arquivo. Ele irá ser incrementado até que seja maior que o valor do id(int.Parse(idArquivos[0]))) retornado pelo arquivo
+                                {
+
+                                    pessoa1.Id++;
+                                }
+
                             }
 
                         }
-
                     }
-                }
-                else
-                {
-                    Console.WriteLine("o arquivo esta vazio");
-                }
+                    else
+                    {
+                        Console.WriteLine("o arquivo esta vazio");
+                    }
 
 
+                }
             }
-        }
-        else
-        {
-            using (FileStream fs = File.Create(endereço))
+            else
+            {
+                using (FileStream fs = File.Create(endereço))
                 {
 
                 }
-        }
-            
+            }
+
 
 
             if (File.Exists(endereço))
@@ -143,9 +143,9 @@ namespace sistema
             string caminhoArquivo = "C:\\Users\\Alunos\\3D Objects\\Sistema\\data\\Dados.csv";
             if (File.Exists(caminhoArquivo))
             {
-                FileInfo arquivoInfo = new FileInfo(caminhoArquivo);
+                string arquivoInfo = File.ReadAllText(endereço);
 
-                if (arquivoInfo.Length > 0)
+                if (String.IsNullOrWhiteSpace(arquivoInfo))
                 {
                     using (StreamReader x = new StreamReader(caminhoArquivo))
                     {
@@ -154,15 +154,25 @@ namespace sistema
                         {
                             var teste = line.Split(new[] { ";" }, StringSplitOptions.None);
 
-                            for (int i = 0; i < 3; i++)
+                            if (teste.Length >= 3)
                             {
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.Write(teste[i]);  // Exibe cada linha
+                                    if (teste[1] == teste[i])
+                                        Console.Write(" - ");
+                                    if (teste[0] == teste[i])
+                                        Console.Write(" ");
+                                    Console.ResetColor();
 
+
+                                }
+                            }
+                            else
+                            {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write(teste[i]);  // Exibe cada linha
-                                if (teste[1] == teste[i])
-                                    Console.Write(" - ");
-                                if (teste[0] == teste[i])
-                                    Console.Write(" ");
+                                Console.WriteLine("O arquivo esta em branco.");
                                 Console.ResetColor();
                             }
                             Console.WriteLine();
